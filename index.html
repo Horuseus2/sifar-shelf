@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Sifar's Shelf | Books, games, movies and series</title>
+  <meta name="description" content="Everything Sifar has read, played and watched: a living shelf of books, games, movies and series.">
+  <meta name="theme-color" content="#0f0f14">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f0f14'/%3E%3Crect x='6' y='9' width='4' height='15' rx='1' fill='%23f2b155'/%3E%3Crect x='11' y='7' width='5' height='17' rx='1' fill='%235ee0a0'/%3E%3Crect x='17' y='10' width='4' height='14' rx='1' fill='%23ff6b6b'/%3E%3Crect x='22' y='8' width='4' height='16' rx='1' fill='%239d8cff' transform='rotate(8 24 16)'/%3E%3Crect x='4' y='24' width='24' height='2.5' rx='1' fill='%23ecebf2'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Geist+Mono:wght@400;500&family=Geist:wght@300..700&display=swap">
+  <link rel="stylesheet" href="css/style.css?v=1">
+</head>
+<body class="is-loading">
+
+  <!-- Ambient background: colour layers only fade, never repaint -->
+  <div class="ambient" aria-hidden="true">
+    <div class="amb amb-base"></div>
+    <div class="amb amb-book"></div>
+    <div class="amb amb-game"></div>
+    <div class="amb amb-movie"></div>
+    <div class="amb amb-series"></div>
+    <div class="grain"></div>
+  </div>
+
+  <!-- Loader -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader-panels"><i></i><i></i><i></i><i></i></div>
+    <div class="loader-inner">
+      <div class="loader-shelf">
+        <span class="lo lo-book"></span>
+        <span class="lo lo-game"></span>
+        <span class="lo lo-movie"></span>
+        <span class="lo lo-series"></span>
+        <span class="lo-board"></span>
+      </div>
+      <p class="loader-word">Sifar's Shelf</p>
+      <p class="loader-count"><span id="loader-n">0</span> things on the shelf</p>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <header class="nav" id="nav">
+    <a class="brand" href="#top" aria-label="Sifar's Shelf, back to top">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      <span class="brand-word">Sifar's Shelf</span>
+    </a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#now" data-nav="now">Now</a>
+      <a href="#collection" data-nav="collection">Collection</a>
+      <a href="#favourites" data-nav="favourites">Favourites</a>
+      <a href="#numbers" data-nav="numbers">Numbers</a>
+      <span class="nav-ink" aria-hidden="true"></span>
+    </nav>
+    <div class="nav-actions">
+      <button class="icon-btn" id="sound-btn" type="button" aria-pressed="false" aria-label="Turn sound on" title="Sound">
+        <i data-icon="soundOff"></i>
+      </button>
+      <button class="icon-btn menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Open menu">
+        <span class="burger" aria-hidden="true"><i></i><i></i></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile menu -->
+  <div class="menu" id="menu" hidden>
+    <nav class="menu-links" aria-label="Sections">
+      <a href="#now" data-nav="now"><span>Now</span></a>
+      <a href="#collection" data-nav="collection"><span>Collection</span></a>
+      <a href="#favourites" data-nav="favourites"><span>Favourites</span></a>
+      <a href="#numbers" data-nav="numbers"><span>Numbers</span></a>
+    </nav>
+  </div>
+
+  <main id="main">
+
+    <!-- Hero -->
+    <section class="hero" id="top">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="pulse" aria-hidden="true"></span>A personal collection</p>
+        <h1 class="hero-title" aria-label="Everything I've read, played and watched.">
+          <span class="ln"><span>Everything</span></span>
+          <span class="ln"><span>I've <em class="t-book">read</em>,</span></span>
+          <span class="ln"><span><em class="t-game">played</em> and</span></span>
+          <span class="ln"><span><em class="t-watch">watched</em>.</span></span>
+        </h1>
+        <p class="hero-lede">A living shelf of the books, games, films and shows that stayed with me. Hover to pull something out, click to see what I thought.</p>
+        <div class="hero-stats" id="hero-stats"></div>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#collection"><span>Browse the shelf</span><i data-icon="arrowDown"></i></a>
+          <button class="btn btn-ghost" id="surprise" type="button"><i data-icon="shuffle"></i><span>Surprise me</span></button>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="ring-stage" id="ring-stage">
+          <div class="ring-tilt" id="ring-tilt">
+            <div class="ring" id="ring"></div>
+          </div>
+          <div class="ring-floor" aria-hidden="true"></div>
+        </div>
+        <p class="ring-hint"><i data-icon="drag"></i>Drag to spin</p>
+      </div>
+    </section>
+
+    <!-- Now -->
+    <section class="section now" id="now">
+      <header class="sec-head">
+        <p class="kicker">Right now</p>
+        <h2 class="sec-title" data-split>On the go at the moment</h2>
+      </header>
+      <div class="now-list" id="now-list"></div>
+    </section>
+
+    <!-- Collection -->
+    <section class="section collection" id="collection">
+      <header class="sec-head">
+        <p class="kicker">The collection</p>
+        <h2 class="sec-title" data-split>Everything on the shelf</h2>
+        <p class="sec-sub" id="col-sub">&nbsp;</p>
+      </header>
+
+      <div class="stick-sentinel" id="stick-sentinel" aria-hidden="true"></div>
+      <div class="toolbar-wrap" id="toolbar-wrap">
+        <div class="toolbar" id="toolbar">
+          <div class="tabs" id="tabs" role="tablist" aria-label="Filter by type">
+            <span class="tabs-ink" aria-hidden="true"></span>
+          </div>
+          <div class="tools">
+            <label class="search">
+              <i data-icon="search"></i>
+              <input id="search" type="search" placeholder="Search the shelf" autocomplete="off" spellcheck="false" aria-label="Search the shelf">
+              <kbd aria-hidden="true">/</kbd>
+            </label>
+            <div class="dropdown" id="sort">
+              <button class="dd-btn" type="button" aria-haspopup="listbox" aria-expanded="false">
+                <i data-icon="sort"></i><span class="dd-label">Recently finished</span><i data-icon="chev" class="dd-chev"></i>
+              </button>
+              <ul class="dd-list" role="listbox" tabindex="-1">
+                <li role="option" data-v="recent" aria-selected="true">Recently finished</li>
+                <li role="option" data-v="rating">Highest rated</li>
+                <li role="option" data-v="title">Title, A to Z</li>
+                <li role="option" data-v="year">Release year</li>
+              </ul>
+            </div>
+            <div class="seg" id="view-seg" role="group" aria-label="View">
+              <button type="button" data-view="wall" aria-pressed="true"><i data-icon="grid"></i><span>Wall</span></button>
+              <button type="button" data-view="shelf" aria-pressed="false"><i data-icon="shelf"></i><span>Shelf</span></button>
+              <span class="seg-ink" aria-hidden="true"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="views" id="views">
+        <div class="wall" id="wall" role="list"></div>
+        <div class="shelf-view" id="shelf" hidden>
+          <div class="lamp-clip" aria-hidden="true"><div class="lamp" id="lamp"></div></div>
+          <div class="bays" id="bays"></div>
+        </div>
+        <div class="empty" id="empty" hidden>
+          <div class="empty-art" aria-hidden="true"><span></span><span></span><span></span></div>
+          <p class="empty-title">Nothing here yet</p>
+          <p class="empty-sub">Try another search or filter.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Favourites -->
+    <section class="section favs" id="favourites">
+      <header class="sec-head">
+        <p class="kicker">The display case</p>
+        <h2 class="sec-title" data-split>The ones I would pick up again</h2>
+      </header>
+      <div class="case" id="case"></div>
+    </section>
+
+    <!-- Numbers -->
+    <section class="section numbers" id="numbers">
+      <header class="sec-head">
+        <p class="kicker">By the numbers</p>
+        <h2 class="sec-title" data-split>A shelf, counted</h2>
+      </header>
+      <div class="stats" id="stats"></div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p class="foot-big" data-split>Thanks for browsing.</p>
+    <p class="foot-sub">Built to keep track of the good stuff. Updated <span id="foot-updated">recently</span>.</p>
+    <div class="foot-links">
+      <a href="#top" class="foot-link"><i data-icon="arrowUp"></i>Back to top</a>
+      <a href="https://horuseus2.github.io/sifar-world/" class="foot-link" target="_blank" rel="noopener"><i data-icon="globe"></i>Sifar's World</a>
+      <button type="button" class="foot-link" id="curator-toggle"><i data-icon="lock"></i><span>Curator mode</span></button>
+    </div>
+    <p class="foot-copy">&copy; <span id="foot-year">2026</span> Sifar Mahfuz</p>
+  </footer>
+
+  <!-- Detail modal -->
+  <div class="modal" id="modal" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-wash" aria-hidden="true"></div>
+    <div class="modal-scroll" data-lenis-prevent data-close>
+      <article class="sheet" role="dialog" aria-modal="true" aria-labelledby="m-title">
+        <button class="m-close icon-btn" type="button" aria-label="Close" data-close-btn><i data-icon="close"></i></button>
+        <div class="m-cover">
+          <div class="m-tilt cov" id="m-tilt">
+            <img id="m-img" alt="" decoding="async">
+            <div class="m-gen" id="m-gen" hidden></div>
+            <span class="glare" aria-hidden="true"></span>
+          </div>
+        </div>
+        <div class="m-body" id="m-body"></div>
+      </article>
+    </div>
+  </div>
+
+  <!-- Curator: dock, editor and toasts are built in js/curator.js -->
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+
+  <script src="js/vendor/gsap.min.js"></script>
+  <script src="js/vendor/ScrollTrigger.min.js"></script>
+  <script src="js/vendor/Flip.min.js"></script>
+  <script src="js/vendor/lenis.min.js"></script>
+  <script src="data/collection.js"></script>
+  <script src="js/core.js?v=1"></script>
+  <script src="js/store.js?v=1"></script>
+  <script src="js/objects.js?v=1"></script>
+  <script src="js/hero.js?v=1"></script>
+  <script src="js/collection.js?v=1"></script>
+  <script src="js/sections.js?v=1"></script>
+  <script src="js/modal.js?v=1"></script>
+  <script src="js/curator.js?v=1"></script>
+  <script src="js/main.js?v=1"></script>
+</body>
+</html>
